@@ -62,7 +62,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     const data = await s3.send(command);
 
     // File URL
-    const fileUrl = `https://${process.env.AWS_S3_BUCKET}.s3.amazonaws.com/${uploadParams.Key}`;
+    const profile_imageUrl = `https://${process.env.AWS_S3_BUCKET}.s3.amazonaws.com/${uploadParams.Key}`;
 
     // DynamoDB configuration
     const dynamoDB = new aws.DynamoDB.DocumentClient({
@@ -76,14 +76,22 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       TableName: TABLE_NAME,
       Item: {
         pk: id,
-        sk: fileUrl,
+        sk: profile_imageUrl,
+        full_name: "Srujan Pothu",
+        designation: "GET",
+        phone_number: 7997037993,
+        email_address: "srujan.pothu@proclink.com",
+        facebook_link: "",
+        linkedIn_link: "",
+        twitter_link: "",
+        instagram_link: "",
       },
     };
 
     // Save the file URL in DynamoDB
     await dynamoDB.put(item).promise();
 
-    res.status(200).json({ fileUrl: fileUrl });
+    res.status(200).json({ profile_imageUrl: profile_imageUrl });
   } catch (err) {
     res.status(500).send(err.message);
   }
