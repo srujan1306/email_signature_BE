@@ -77,21 +77,21 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       Item: {
         pk: id,
         profile_imageUrl: profile_imageUrl,
-        full_name: "Srujan Pothu",
-        designation: "GET",
-        phone_number: 7997037993,
-        email_address: "srujan.pothu@proclink.com",
-        facebook_link: "",
-        linkedIn_link: "",
-        twitter_link: "",
-        instagram_link: "",
+        full_name: req.body.full_name,
+        designation: req.body.designation,
+        phone_number: req.body.phone_number,
+        email_address: req.body.email_address,
+        facebook_link: req.body.facebook_link,
+        linkedIn_link: req.body.linkedIn_link,
+        twitter_link: req.body.twitter_link,
+        instagram_link: req.body.instagram_link,
       },
     };
 
     // Save the file URL in DynamoDB
     await dynamoDB.put(item).promise();
 
-    res.status(200).json({ profile_imageUrl: profile_imageUrl });
+    res.status(200).json({ item: item.Item });
   } catch (err) {
     res.status(500).send(err.message);
   }
