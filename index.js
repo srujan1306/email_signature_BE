@@ -76,7 +76,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       TableName: TABLE_NAME,
       Item: {
         pk: id,
-        sk: profile_imageUrl,
+        profile_imageUrl: profile_imageUrl,
         full_name: "Srujan Pothu",
         designation: "GET",
         phone_number: 7997037993,
