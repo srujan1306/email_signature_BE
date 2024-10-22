@@ -91,7 +91,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     // Save the file URL in DynamoDB
     await dynamoDB.put(item).promise();
 
-    res.status(200).json({ item: item.Item });
+    res.status(200).json(item.Item);
   } catch (err) {
     res.status(500).send(err.message);
   }
